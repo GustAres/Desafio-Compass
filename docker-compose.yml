@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - mongo-data:/data/db
+
+  event-service:
+    build: ./event-service
+    container_name: event-service
+    depends_on:
+      - mongodb
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://admin:admin@mongodb:27017/db_event
+
+  ticket-service:
+    build: ./ticket-service
+    container_name: ticket-service
+    depends_on:
+      - mongodb
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://admin:admin@mongodb:27017/db_ticket
+
+volumes:
+  mongo-data:
+    driver: local
