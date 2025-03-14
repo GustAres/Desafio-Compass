@@ -1,0 +1,6 @@
+com\estagio\eventservice\client\ViaCepClient.class
+com\estagio\eventservice\repository\EventRepository.class
+com\estagio\eventservice\EventServiceApplication.class
+com\estagio\eventservice\model\Event.class
+com\estagio\eventservice\service\EventService.class
+com\estagio\eventservice\controller\EventController.class
